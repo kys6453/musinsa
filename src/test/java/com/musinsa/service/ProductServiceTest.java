@@ -69,9 +69,7 @@ public class ProductServiceTest {
     public void test_find_minimum_price_by_category_and_brand_no_data() {
         when(productRepository.findMinimumPriceByCategoryAndBrand()).thenReturn(List.of());
 
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            productService.findMinimumPriceByCategoryAndBrand();
-        });
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> productService.findMinimumPriceByCategoryAndBrand());
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
         assertEquals("No products are found to get minimum price by category and brand", exception.getReason());
@@ -111,9 +109,7 @@ public class ProductServiceTest {
     public void test_find_minimum_price_for_all_by_brand_no_date() {
         when(productRepository.findMinimumPriceForAllByBrand()).thenReturn(List.of());
 
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            productService.findMinimumPriceForAllByBrand();
-        });
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> productService.findMinimumPriceForAllByBrand());
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
         assertEquals("All brands have insufficient categories of clothing available", exception.getReason());
@@ -154,9 +150,7 @@ public class ProductServiceTest {
     public void test_find_minimum_and_maximum_price_by_category_no_data() {
         when(productRepository.findMinimumAndMaximumPriceByCategory("pants")).thenReturn(List.of());
 
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            productService.findMinimumAndMaximumPriceByCategory("pants");
-        });
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> productService.findMinimumAndMaximumPriceByCategory("pants"));
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
         assertEquals("There is no product for the category -> pants", exception.getReason());
@@ -197,9 +191,7 @@ public class ProductServiceTest {
         request.setCategory("top");
         request.setPrice(1000);
 
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            productService.insertProduct(request);
-        });
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> productService.insertProduct(request));
 
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
         assertEquals("You should not specify an id to insert a product, id will be generated automatically", exception.getReason());
@@ -211,9 +203,7 @@ public class ProductServiceTest {
     public void test_insert_product_brand_category_price_any_null() {
         ManipulateProductRequest request = new ManipulateProductRequest();
 
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            productService.insertProduct(request);
-        });
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> productService.insertProduct(request));
 
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
         assertEquals("You should specify all values for [brand_name(string), category(string), price(int)] to insert a product", exception.getReason());
@@ -231,9 +221,7 @@ public class ProductServiceTest {
         request.setCategory("top");
         request.setPrice(randomNum);
 
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            productService.insertProduct(request);
-        });
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> productService.insertProduct(request));
 
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
         assertEquals("Price must be greater than or equal to 0 -> " + randomNum, exception.getReason());
@@ -275,9 +263,7 @@ public class ProductServiceTest {
         request.setBrandName("A");
         request.setPrice(123);
 
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            productService.updateProduct(request);
-        });
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> productService.updateProduct(request));
 
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
         assertEquals("You need to specify an existing id to update a product", exception.getReason());
@@ -293,9 +279,7 @@ public class ProductServiceTest {
         request.setBrandName("A");
         request.setPrice(123);
 
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            productService.updateProduct(request);
-        });
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> productService.updateProduct(request));
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
         assertEquals("Product of the specified id does not exist -> " + 1L, exception.getReason());
@@ -337,9 +321,7 @@ public class ProductServiceTest {
         request.setBrandName("A");
         request.setPrice(123);
 
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            productService.deleteProduct(request);
-        });
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> productService.deleteProduct(request));
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
         assertEquals("Product of the specified id does not exist -> " + 1L, exception.getReason());

@@ -1,7 +1,6 @@
 package com.musinsa.model.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.musinsa.model.dto.db.MinAndMaxPriceDTO;
 import com.musinsa.model.dto.response.component.PriceDTO;
 import lombok.Data;
 
